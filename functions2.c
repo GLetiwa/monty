@@ -33,4 +33,5 @@ void opcode_pchar(stack_t **stack, unsigned int line_number)
 		return;
 	character = (char)value;
 	printf("%c\n", character);
+	(void)line_number;
 }
