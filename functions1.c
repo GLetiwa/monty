@@ -4,7 +4,7 @@
  *
  *
  */
-void opcode_push(stack_t **stack, int value)
+void opcode_push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new;
 
@@ -25,7 +25,7 @@ void opcode_push(stack_t **stack, int value)
  *
  *
  */
-void opcode_pop(stack_t **stack, int value)
+void opcode_pop(stack_t **stack, unsigned int line_number)
 {
 	(void)value;
 	stack_t *temp = NULL;
@@ -43,11 +43,12 @@ void opcode_pop(stack_t **stack, int value)
  *
  *
  */
-void opcode_pall(stack_t **stack, int value)
+void opcode_pall(stack_t **stack, unsigned int line_number)
 {
+	(void)value;
 	stack_t *current = NULL;
 
-	current = *stack;
+	current = (*stack);
 	while (current)
 	{
 		printf("%d\n", current->n);
@@ -59,7 +60,7 @@ void opcode_pall(stack_t **stack, int value)
  *
  *
  */
-void opcode_pint(stack_t **stack, int value)
+void opcode_pint(stack_t **stack, unsigned int line_number)
 {
 	if (!*stack)
 	       return;
@@ -70,7 +71,7 @@ void opcode_pint(stack_t **stack, int value)
  *
  *
  */
-void opcode_swap(stack_t **stack, int value)
+void opcode_swap(stack_t **stack, unsigned int line_number)
 {
 	int temp = 0;
 
@@ -88,7 +89,7 @@ void opcode_swap(stack_t **stack, int value)
  *
  *
  */
-void opcode_add(stack_t **stack, int value)
+void opcode_add(stack_t **stack, unsigned int line_number)
 {
         if (*stack)
                if (!(*stack)->next)
@@ -103,7 +104,7 @@ void opcode_add(stack_t **stack, int value)
  *
  *
  */
-void opcode_nop(stack_t **stack, int value)
+void opcode_nop(stack_t **stack, unsigned int line_number)
 {
 	(void)stack;
 	(void)value;
@@ -116,7 +117,7 @@ void opcode_nop(stack_t **stack, int value)
  *
  *
  */
-void opcode_sub(stack_t **stack, int value)
+void opcode_sub(stack_t **stack, unsigned int line_number)
 {
 	if (*stack)
 		if (!(*stack)->next)
@@ -131,7 +132,7 @@ void opcode_sub(stack_t **stack, int value)
  *
  *
  */
-void opcode_div(stack_t **stack, int value)
+void opcode_div(stack_t **stack, unsigned int line_number)
 {
 	if (*stack)
 		if (!(*stack)->next)
@@ -148,7 +149,7 @@ void opcode_div(stack_t **stack, int value)
  *
  *
  */
-void opcode_mul(stack_t **stack, int value)
+void opcode_mul(stack_t **stack, unsigned int line_number)
 {
 	if (*stack)
 		if (!(*stack)->next)
@@ -163,7 +164,7 @@ void opcode_mul(stack_t **stack, int value)
  *
  *
  */
-void opcode_mod(stack_t **stack, int value)
+void opcode_mod(stack_t **stack, unsigned int line_number)
 {
         if (*stack)
                 if (!(*stack)->next)
