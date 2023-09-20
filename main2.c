@@ -29,6 +29,11 @@ int opcode_execute(const char *opcode, stack_t **stack,
 	};
 	for (i = 0; op_functs[i].opcode; i++)
 	{
+		if (opcode[0] == '#')
+		{
+			op_functs[6].f(stack, line_number);
+			return (0);
+		}
 		if (strcmp(opcode, op_functs[i].opcode) == 0)
 		{
 			op_functs[i].f(stack, line_number);
