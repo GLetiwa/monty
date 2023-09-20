@@ -5,8 +5,9 @@ int str_val = 0;
  * @opcode: The opcode to execute
  * @stack: Pointer to the stack
  * @line_number: Current line number
+ * Return: error status
  */
-void opcode_execute(const char *opcode, stack_t **stack,
+int opcode_execute(const char *opcode, stack_t **stack,
 		unsigned int line_number)
 {
 	size_t i = 0;
@@ -31,45 +32,55 @@ void opcode_execute(const char *opcode, stack_t **stack,
 		if (strcmp(opcode, op_functs[i].opcode) == 0)
 		{
 			op_functs[i].f(stack, line_number);
-			return;
+			if (str_val == -1)
+				break;
+			return (0);
 		}
 	}
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-	exit(EXIT_FAILURE);
+	return (-1);
 }
 
 /**
  * bytecode_execute - executes monty bytecode from a file
  * @file: The bytecode file
  * @stack: Pointer to the stack
+ * Return: error status
  */
-void bytecode_execute(FILE *file, stack_t **stack)
+int bytecode_execute(FILE *file, stack_t **stack)
 {
 	char *opcode, *opcode_cpy, *line = NULL;
 	size_t len = 0;
 	unsigned int line_number = 0;
+	int rtn_v = 0;
 
 	(void)opcode_cpy;
 	while (getline(&line, &len, file) != -1)
 	{
-		is_push(line);
+		if (is_push(line) == -1)
+			return (-1);
 		line_number++;
 		opcode = strtok(line, " \n");
 		if (!opcode)
 			continue;
 		else
 		{
-			/*opcode_cpy = malloc(strlen(opcode) + 1);
-			strcpy(opcode_cpy, opcode);
-			strtok(opcode_cpy, " "); */
+			/**
+			* opcode_cpy = malloc(strlen(opcode) + 1);
+			* strcpy(opcode_cpy, opcode);
+			* strtok(opcode_cpy, " ");
+			*/
 
-			opcode_execute(opcode, stack, line_number);
+			rtn_v = opcode_execute(opcode, stack, line_number);
 			opcode = strtok(NULL, " \n");
+			if (rtn_v != 0)
+				break;
 
 		}
 	}
 	if (line)
 		free(line);
+	return (rtn_v);
 }
 /**
  * main - main function
@@ -81,6 +92,7 @@ int main(int argc, char *argv[])
 {
 	FILE *file;
 	stack_t *stack = NULL;
+	int rtn = 0;
 
 	if (argc != 2)
 	{
@@ -93,19 +105,28 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	bytecode_execute(file, &stack);
+	rtn = bytecode_execute(file, &stack);
 	free_list(&stack);
 	fclose(file);
-	return (EXIT_SUCCESS);
+	return (rtn == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
 }
-void is_push(char *line)
+/**
+ * is_push - checks if opcode is push
+ * @line: string to be copied and checked
+ * Return: -1 on malloc fail 0 on success
+ */
+int is_push(char *line)
 {
 	char *line_cpy, *op_c;
 
 	line_cpy = malloc(strlen(line) + 1);
 
 	if (!line_cpy)
-		return;
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		free(line);
+		return (-1);
+	}
 
 	strcpy(line_cpy, line);
 	op_c = strtok(line_cpy, " ");
@@ -115,7 +136,12 @@ void is_push(char *line)
 		str_val = atoi(op_c);
 	}
 	free(line_cpy);
+	return (0);
 }
+/**
+ * free_list - frees the linked list
+ * @stack: linked list to be freed
+ */
 void free_list(stack_t **stack)
 {
 	stack_t *tmp, *head;
@@ -134,6 +160,4 @@ void free_list(stack_t **stack)
 		head = head->next;
 		free(tmp);
 	}
-
-
 }

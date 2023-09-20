@@ -61,11 +61,11 @@ void opcode_stack(stack_t **stack, unsigned int line_number);
 void opcode_queue(stack_t **stack, unsigned int line_number);
 
 /* main.c functions */
-void opcode_execute(const char *opcode, stack_t **stack,
+int opcode_execute(const char *opcode, stack_t **stack,
 			unsigned int line_number);
-void bytecode_execute(FILE *file, stack_t **stack);
+int bytecode_execute(FILE *file, stack_t **stack);
 int main(int argc, char *argv[]);
-void is_push(char *line);
+int is_push(char *line);
 void free_list(stack_t **stack);
 
 #endif
