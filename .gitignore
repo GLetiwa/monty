@@ -6,3 +6,6 @@ yeet
 
 # *.m files 
 *.m
+
+# *.swp files
+*.swp
