@@ -10,17 +10,19 @@ void opcode_push(stack_t **stack, unsigned int value)
 {
 	stack_t *new;
 
+	(void)value;
 	new = malloc(sizeof(stack_t));
 	if (!new)
 	{
 		return;
 	}
-	new->n = value;
+	new->n = str_val;
 	new->prev = NULL;
 	new->next = *stack;
 	if (*stack)
 		(*stack)->prev = new;
 	*stack = new;
+
 }
 
 /**

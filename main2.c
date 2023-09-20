@@ -1,5 +1,5 @@
 #include "monty.h"
-
+int str_val = 0;
 /**
  * opcode_execute - executes the opcode function
  * @opcode: The opcode to execute
@@ -45,23 +45,31 @@ void opcode_execute(const char *opcode, stack_t **stack,
  */
 void bytecode_execute(FILE *file, stack_t **stack)
 {
-	char *line = NULL, *opcode;
+	char *opcode, *opcode_cpy, *line = NULL;
 	size_t len = 0;
 	unsigned int line_number = 0;
 
+	(void)opcode_cpy;
 	while (getline(&line, &len, file) != -1)
 	{
+		is_push(line);
 		line_number++;
 		opcode = strtok(line, " \n");
 		if (!opcode)
 			continue;
 		else
 		{
+			/*opcode_cpy = malloc(strlen(opcode) + 1);
+			strcpy(opcode_cpy, opcode);
+			strtok(opcode_cpy, " "); */
+
 			opcode_execute(opcode, stack, line_number);
 			opcode = strtok(NULL, " \n");
+
 		}
 	}
-	free(line);
+	if (line)
+		free(line);
 }
 /**
  * main - main function
@@ -86,6 +94,46 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	bytecode_execute(file, &stack);
+	free_list(&stack);
 	fclose(file);
 	return (EXIT_SUCCESS);
+}
+void is_push(char *line)
+{
+	char *line_cpy, *op_c;
+
+	line_cpy = malloc(strlen(line) + 1);
+
+	if (!line_cpy)
+		return;
+
+	strcpy(line_cpy, line);
+	op_c = strtok(line_cpy, " ");
+	if (strcmp(op_c, "push") == 0)
+	{
+		op_c = strtok(NULL, " \n");
+		str_val = atoi(op_c);
+	}
+	free(line_cpy);
+}
+void free_list(stack_t **stack)
+{
+	stack_t *tmp, *head;
+
+	if (!stack)
+		return;
+	head = *stack;
+
+	if (!head)
+		return;
+	while (head->prev)
+		head = head->prev;
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp);
+	}
+
+
 }

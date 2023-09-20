@@ -25,7 +25,7 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
-extern char *str_value;
+extern int str_val;
 
 /**
  * struct instruction_s - opcode and its function
@@ -57,13 +57,15 @@ void opcode_pchar(stack_t **stack, unsigned int line_number);
 void opcode_pstr(stack_t **stack, unsigned int line_number);
 void opcode_rotl(stack_t **stack, unsigned int line_number);
 void opcode_rotr(stack_t **stack, unsigned int line_number);
-void opcode_stack(stack_t **stack,unsigned int line_number);
+void opcode_stack(stack_t **stack, unsigned int line_number);
 void opcode_queue(stack_t **stack, unsigned int line_number);
 
 /* main.c functions */
 void opcode_execute(const char *opcode, stack_t **stack,
-                unsigned int line_number);
+			unsigned int line_number);
 void bytecode_execute(FILE *file, stack_t **stack);
 int main(int argc, char *argv[]);
+void is_push(char *line);
+void free_list(stack_t **stack);
 
 #endif
