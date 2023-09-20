@@ -10,7 +10,16 @@ void opcode_pchar(stack_t **stack, unsigned int line_number)
 	int value;
 	char character;
 
-	if (*stack == NULL)
+	if (stack != NULL)
+	{
+		if (*stack == NULL)
+		{
+			str_val = -1;
+			fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
+			return;
+		}
+	}
+	else
 	{
 		str_val = -1;
 		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
@@ -24,7 +33,6 @@ void opcode_pchar(stack_t **stack, unsigned int line_number)
 	}
 	character = (char)value;
 	printf("%c\n", character);
-	(void)line_number;
 }
 #include "monty.h"
 /**
