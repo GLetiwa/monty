@@ -25,6 +25,8 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
+extern char *str_value;
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -38,10 +40,6 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-
-/* main.c functions */
-int exit_fn(int exit_val);
-int funct_select(FILE *fd_stat);
 
 /* opcode functions */
 void opcode_push(stack_t **stack, unsigned int value);
@@ -62,11 +60,10 @@ void opcode_rotr(stack_t **stack, unsigned int line_number);
 void opcode_stack(stack_t **stack,unsigned int line_number);
 void opcode_queue(stack_t **stack, unsigned int line_number);
 
-/* executing functions */
+/* main.c functions */
 void opcode_execute(const char *opcode, stack_t **stack,
                 unsigned int line_number);
 void bytecode_execute(FILE *file, stack_t **stack);
 int main(int argc, char *argv[]);
-
 
 #endif
