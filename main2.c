@@ -33,7 +33,7 @@ int opcode_execute(const char *opcode, stack_t **stack,
 		{
 			op_functs[i].f(stack, line_number);
 			if (str_val == -1)
-				break;
+				return (-1);
 			return (0);
 		}
 	}
@@ -57,8 +57,11 @@ int bytecode_execute(FILE *file, stack_t **stack)
 	(void)opcode_cpy;
 	while (getline(&line, &len, file) != -1)
 	{
-		if (is_push(line) == -1)
-			return (-1);
+		if (is_push(line, line_number) == -1)
+		{
+			rtn_v = -1;
+			break;
+		}
 		line_number++;
 		opcode = strtok(line, " \n");
 		if (!opcode)
@@ -113,11 +116,13 @@ int main(int argc, char *argv[])
 /**
  * is_push - checks if opcode is push
  * @line: string to be copied and checked
+ * @line_number: self explanatory
  * Return: -1 on malloc fail 0 on success
  */
-int is_push(char *line)
+int is_push(char *line, unsigned int line_number)
 {
 	char *line_cpy, *op_c;
+	int l_n = line_number;
 
 	line_cpy = malloc(strlen(line) + 1);
 
@@ -129,11 +134,18 @@ int is_push(char *line)
 	}
 
 	strcpy(line_cpy, line);
-	op_c = strtok(line_cpy, " ");
+	op_c = strtok(line_cpy, " \n");
 	if (strcmp(op_c, "push") == 0)
 	{
 		op_c = strtok(NULL, " \n");
-		str_val = atoi(op_c);
+		if (op_c != NULL)
+			str_val = atoi(op_c);
+		else
+		{
+			fprintf(stderr, "L%u: usage: push integer\n", (l_n == 0 ? 1 : l_n));
+			free(line_cpy);
+			return (-1);
+		}
 	}
 	free(line_cpy);
 	return (0);

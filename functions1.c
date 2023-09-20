@@ -38,6 +38,7 @@ void opcode_pop(stack_t **stack, unsigned int line_number)
 	if (*stack == NULL)
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		return;
 	}
 	temp = *stack;
@@ -45,7 +46,6 @@ void opcode_pop(stack_t **stack, unsigned int line_number)
 	if (*stack)
 		(*stack)->prev = NULL;
 	free(temp);
-	(void)line_number;
 	str_val = 0;
 }
 
@@ -77,10 +77,10 @@ void opcode_pint(stack_t **stack, unsigned int line_number)
 	if (!stack || !*stack)
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		return;
 	}
 	printf("%d\n", (*stack)->n);
-	(void)line_number;
 	str_val = 0;
 }
 
@@ -98,18 +98,19 @@ void opcode_swap(stack_t **stack, unsigned int line_number)
 		if (!(*stack)->next)
 		{
 			str_val = -1;
+			fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
 			return;
 		}
 	}
 	else
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
 		return;
 	}
 	temp = (*stack)->n;
 	(*stack)->n = ((*stack)->next)->n;
 	((*stack)->next)->n = temp;
-	(void)line_number;
 	str_val = 0;
 }
 

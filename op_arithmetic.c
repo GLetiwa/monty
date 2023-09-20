@@ -12,18 +12,19 @@ void opcode_add(stack_t **stack, unsigned int line_number)
 		if (!(*stack)->next)
 		{
 			str_val = -1;
+			fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
 			return;
 		}
 	}
 	else
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
 		return;
 	}
 
 	((*stack)->next)->n += (*stack)->n;
 	opcode_pop(stack, line_number);
-	(void)line_number;
 	str_val = 0;
 }
 /**
@@ -38,17 +39,18 @@ void opcode_sub(stack_t **stack, unsigned int line_number)
 		if (!(*stack)->next)
 		{
 			str_val = -1;
+			fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
 			return;
 		}
 	}
 	else
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
 		return;
 	}
 	((*stack)->next)->n -= (*stack)->n;
 	opcode_pop(stack, line_number);
-	(void)line_number;
 	str_val = 0;
 }
 
@@ -64,22 +66,24 @@ void opcode_div(stack_t **stack, unsigned int line_number)
 		if (!(*stack)->next)
 		{
 			str_val = -1;
+			fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
 			return;
 		}
 	}
 	else
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
 		return;
 	}
 	if ((*stack)->n == 0)
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: division by zero\n", line_number);
 		return;
 	}
 	((*stack)->next)->n /= (*stack)->n;
 	opcode_pop(stack, line_number);
-	(void)line_number;
 	str_val = 0;
 }
 
@@ -95,17 +99,18 @@ void opcode_mul(stack_t **stack, unsigned int line_number)
 		if (!(*stack)->next)
 		{
 			str_val = -1;
+			fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
 			return;
 		}
 	}
 	else
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
 		return;
 	}
 	(*stack)->next->n *= (*stack)->n;
 	opcode_pop(stack, line_number);
-	(void)line_number;
 	str_val = 0;
 }
 
@@ -122,21 +127,23 @@ void opcode_mod(stack_t **stack, unsigned int line_number)
 		if (!(*stack)->next)
 		{
 			str_val = -1;
+			fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 			return;
 		}
 	}
 	else
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		return;
 	}
 	if ((*stack)->n == 0)
 	{
 		str_val = -1;
+		fprintf(stderr, "L%u: division by zero\n", line_number);
 		return;
 	}
 	(*stack)->next->n %= (*stack)->n;
 	opcode_pop(stack, line_number);
-	(void)line_number;
 	str_val = 0;
 }

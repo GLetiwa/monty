@@ -11,10 +11,17 @@ void opcode_pchar(stack_t **stack, unsigned int line_number)
 	char character;
 
 	if (*stack == NULL)
+	{
+		str_val = -1;
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
 		return;
+	}
 	value = (*stack)->n;
 	if (value < 0 || value > 127)
+	{
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
 		return;
+	}
 	character = (char)value;
 	printf("%c\n", character);
 	(void)line_number;

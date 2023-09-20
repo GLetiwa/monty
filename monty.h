@@ -65,7 +65,7 @@ int opcode_execute(const char *opcode, stack_t **stack,
 			unsigned int line_number);
 int bytecode_execute(FILE *file, stack_t **stack);
 int main(int argc, char *argv[]);
-int is_push(char *line);
+int is_push(char *line, unsigned int line_number);
 void free_list(stack_t **stack);
 
 #endif
