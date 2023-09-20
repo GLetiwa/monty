@@ -1,7 +1,9 @@
 #include "monty.h"
 
 /**
- *
+ * opcode_push - implements the monty opcode push
+ * @stack: pointer to a stack or queue
+ * @value: value of the stack or queu
  *
  */
 void opcode_push(stack_t **stack, unsigned int value)
@@ -22,7 +24,9 @@ void opcode_push(stack_t **stack, unsigned int value)
 }
 
 /**
- *
+ * opcode _pop - removes top element of the stack
+ * @stack: pointer to a stack or queue
+ * @line_number: current line number being evaluated
  *
  */
 void opcode_pop(stack_t **stack, unsigned int line_number)
@@ -40,7 +44,9 @@ void opcode_pop(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *
+ * opcode_pall - prints all the values of the stack
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  *
  */
 void opcode_pall(stack_t **stack, unsigned int line_number)
@@ -57,8 +63,9 @@ void opcode_pall(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *
- *
+ * opcode _pint -prints the value at the top of the stack
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  */
 void opcode_pint(stack_t **stack, unsigned int line_number)
 {
@@ -69,8 +76,9 @@ void opcode_pint(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *
- *
+ * opcode_swap - swaps the top 2 elements of the stack
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  */
 void opcode_swap(stack_t **stack, unsigned int line_number)
 {
