@@ -55,8 +55,11 @@ void bytecode_execute(FILE *file, stack_t **stack)
 		opcode = strtok(line, " \n");
 		if (!opcode)
 			continue;
-		opcode_execute(opcode, stack, line_number);
-		opcode = strtok(NULL, " \n");
+		else
+		{
+			opcode_execute(opcode, stack, line_number);
+			opcode = strtok(NULL, " \n");
+		}
 	}
 	free(line);
 }

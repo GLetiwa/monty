@@ -1,9 +1,9 @@
 #include "monty.h"
 
 /**
- * opcode_push - implements the monty opcode push
+ * opcode_push - pushes an element to the stack
  * @stack: pointer to a stack or queue
- * @value: value of the stack or queu
+ * @value: value of the stack or queue
  *
  */
 void opcode_push(stack_t **stack, unsigned int value)
@@ -98,8 +98,9 @@ void opcode_swap(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *
- *
+ * opcode_add - adds the top 2 elements fo the stack
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  */
 void opcode_add(stack_t **stack, unsigned int line_number)
 {
@@ -112,25 +113,27 @@ void opcode_add(stack_t **stack, unsigned int line_number)
                 return;
 	((*stack)->next)->n += (*stack)->n;
 	opcode_pop(stack, line_number);
-	(void)line_number;	
+	(void)line_number;
 }
 
 /**
- *
- *
+ * opcode_nop - does nothing
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  */
 void opcode_nop(stack_t **stack, unsigned int line_number)
 {
 	(void)stack;
 	(void)line_number;
-	
+
 	return;
 
 }
 
 /**
- *
- *
+ * opcode_sub - subtracts the top 2 elements of the stack
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  */
 void opcode_sub(stack_t **stack, unsigned int line_number)
 {
@@ -147,8 +150,9 @@ void opcode_sub(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *
- *
+ * opcode_div - divides the top 2 second elements of the stack
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  */
 void opcode_div(stack_t **stack, unsigned int line_number)
 {
@@ -167,8 +171,9 @@ void opcode_div(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *
- *
+ * opcode_mul - divides the top 2 elements of the stack
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  */
 void opcode_mul(stack_t **stack, unsigned int line_number)
 {
@@ -185,8 +190,10 @@ void opcode_mul(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *
- *
+ * opcode_mod - computes the division of the second top
+ * element of the stack by the top element
+ * @stack: pointer to a stack or queue
+ * @line_number: current line being evaluated
  */
 void opcode_mod(stack_t **stack, unsigned int line_number)
 {
