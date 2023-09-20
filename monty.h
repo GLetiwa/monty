@@ -1,6 +1,8 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -42,22 +44,29 @@ int exit_fn(int exit_val);
 int funct_select(FILE *fd_stat);
 
 /* opcode functions */
-void opcode_push(stack_t **stack, int value);
-void opcode_pop(stack_t **stack, int value);
-void opcode_pall(stack_t **stack, int value);
-void opcode_pint(stack_t **stack, int value);
-void opcode_swap(stack_t **stack, int value);
-void opcode_add(stack_t **stack, int value);
-void opcode_nop(stack_t **stack, int value);
-void opcode_sub(stack_t **stack, int value);
-void opcode_div(stack_t **stack, int value);
-void opcode_mul(stack_t **stack, int value);
-void opcode_mod(stack_t **stack, int value);
-void opcode_pchar(stack_t **stack, int value);
-void opcode_pstr(stack_t **stack, int value);
-void opcode_rotl(stack_t **stack, int value);
-void opcode_rotr(stack_t **stack, int value);
-void opcode_stack(stack_t **stack, int value);
-void opcode_queue(stack_t **stack, int value);
+void opcode_push(stack_t **stack, unsigned int value);
+void opcode_pop(stack_t **stack, unsigned int line_number);
+void opcode_pall(stack_t **stack, unsigned int line_number);
+void opcode_pint(stack_t **stack, unsigned int line_number);
+void opcode_swap(stack_t **stack, unsigned int line_number);
+void opcode_add(stack_t **stack, unsigned int line_number);
+void opcode_nop(stack_t **stack, unsigned int line_number);
+void opcode_sub(stack_t **stack, unsigned int line_number);
+void opcode_div(stack_t **stack, unsigned int line_number);
+void opcode_mul(stack_t **stack, unsigned int line_number);
+void opcode_mod(stack_t **stack, unsigned int line_number);
+void opcode_pchar(stack_t **stack, unsigned int line_number);
+void opcode_pstr(stack_t **stack, unsigned int line_number);
+void opcode_rotl(stack_t **stack, unsigned int line_number);
+void opcode_rotr(stack_t **stack, unsigned int line_number);
+void opcode_stack(stack_t **stack,unsigned int line_number);
+void opcode_queue(stack_t **stack, unsigned int line_number);
+
+/* executing functions */
+void opcode_execute(const char *opcode, stack_t **stack,
+                unsigned int line_number);
+void bytecode_execute(FILE *file, stack_t **stack);
+int main(int argc, char *argv[]);
+
 
 #endif
