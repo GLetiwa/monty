@@ -25,6 +25,9 @@ int opcode_execute(const char *opcode, stack_t **stack,
 	{"mul", opcode_mul},
 	{"mod", opcode_mod},
 	{"pchar", opcode_pchar},
+	{"pstr", opcode_pstr},
+	{"rotl", opcode_rotl},
+	{"rotr", opcode_rotr},
 	{NULL, NULL}
 	};
 	for (i = 0; op_functs[i].opcode; i++)
