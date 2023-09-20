@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <string.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -34,5 +36,28 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+/* main.c functions */
+int exit_fn(int exit_val);
+int funct_select(FILE *fd_stat);
+
+/* opcode functions */
+void opcode_push(stack_t **stack, int value);
+void opcode_pop(stack_t **stack, int value);
+void opcode_pall(stack_t **stack, int value);
+void opcode_pint(stack_t **stack, int value);
+void opcode_swap(stack_t **stack, int value);
+void opcode_add(stack_t **stack, int value);
+void opcode_nop(stack_t **stack, int value);
+void opcode_sub(stack_t **stack, int value);
+void opcode_div(stack_t **stack, int value);
+void opcode_mul(stack_t **stack, int value);
+void opcode_mod(stack_t **stack, int value);
+void opcode_pchar(stack_t **stack, int value);
+void opcode_pstr(stack_t **stack, int value);
+void opcode_rotl(stack_t **stack, int value);
+void opcode_rotr(stack_t **stack, int value);
+void opcode_stack(stack_t **stack, int value);
+void opcode_queue(stack_t **stack, int value);
 
 #endif
