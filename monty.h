@@ -25,7 +25,7 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
-t:xtern int str_val;
+extern int str_val;
 
 /**
  * struct instruction_s - opcode and its function
