@@ -143,6 +143,11 @@ int is_push(char *line, unsigned int line_number)
 
 	strcpy(line_cpy, line);
 	op_c = strtok(line_cpy, " \n");
+	if (!op_c)
+	{
+	       free(line_cpy);
+	       return (0);
+	}
 	if (strcmp(op_c, "push") == 0)
 	{
 		op_c = strtok(NULL, " \n");
