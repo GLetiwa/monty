@@ -65,12 +65,12 @@ int bytecode_execute(FILE *file, stack_t **stack)
 	(void)opcode_cpy;
 	while (getline(&line, &len, file) != -1)
 	{
+		line_number++;
 		if (is_push(line, line_number) == -1)
 		{
 			rtn_v = -1;
 			break;
 		}
-		line_number++;
 		opcode = strtok(line, " \n");
 		if (!opcode)
 			continue;
@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
 int is_push(char *line, unsigned int line_number)
 {
 	char *line_cpy, *op_c;
-	int l_n = line_number, check = 0;
+	int check = 0;
 
 	line_cpy = malloc(strlen(line) + 1);
 
@@ -152,14 +152,14 @@ int is_push(char *line, unsigned int line_number)
 			str_val = atoi(op_c);
 			if (check != 0 && str_val == 0)
 			{
-				fprintf(stderr, "L%u: usage: push integer\n", (l_n == 0 ? 1 : l_n));
+				fprintf(stderr, "L%u: usage: push integer\n", line_number);
 				free(line_cpy);
 				return (-1);
 			}
 		}
 		else
 		{
-			fprintf(stderr, "L%u: usage: push integer\n", (l_n == 0 ? 1 : l_n));
+			fprintf(stderr, "L%u: usage: push integer\n", line_number);
 			free(line_cpy);
 			return (-1);
 		}
