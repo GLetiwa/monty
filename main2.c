@@ -145,8 +145,8 @@ int is_push(char *line, unsigned int line_number)
 	op_c = strtok(line_cpy, " \n");
 	if (!op_c)
 	{
-	       free(line_cpy);
-	       return (0);
+		free(line_cpy);
+		return (0);
 	}
 	if (strcmp(op_c, "push") == 0)
 	{
@@ -158,19 +158,17 @@ int is_push(char *line, unsigned int line_number)
 			if (check != 0 && str_val == 0)
 			{
 				fprintf(stderr, "L%u: usage: push integer\n", line_number);
-				free(line_cpy);
-				return (-1);
+				check = -1;
 			}
 		}
 		else
 		{
 			fprintf(stderr, "L%u: usage: push integer\n", line_number);
-			free(line_cpy);
-			return (-1);
+			check = -1;
 		}
 	}
 	free(line_cpy);
-	return (0);
+	return (check == -1 ? -1 : 0);
 }
 /**
  * free_list - frees the linked list
